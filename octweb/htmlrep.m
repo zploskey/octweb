@@ -1,12 +1,7 @@
 function rep = htmlrep(instruct, infile)
 
-fnames = fieldnames(instruct)
-fnames = fnames'
-
-fprintf("<pre>");
-fnames
-instruct
-printf("</pre>");
+fnames = fieldnames(instruct);
+fnames = fnames';
 
 rep = fileread(infile);
 
