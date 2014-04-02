@@ -52,7 +52,7 @@ addpath(code_dir);
 
 htmlstring = feval(mlmfile, inputs);
 
-fprintf(htmlstring);
+printf(htmlstring);
 
 #printf('<\pre>');
 
