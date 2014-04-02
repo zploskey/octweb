@@ -50,7 +50,9 @@ fclose(fd);
 # we match, get source code directory vars
 addpath(code_dir);
 
-feval(mlmfile, inputs)
+htmlstring = feval(mlmfile, inputs);
+
+fprintf(htmlstring);
 
 #printf('<\pre>');
 
