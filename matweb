@@ -2,7 +2,6 @@
 
 addpath([pwd() '/octweb']);
 printf('Content-type: text/html\n\n');
-#printf('<pre>');
 
 CGI = cgi();
 
@@ -10,8 +9,6 @@ CGI = cgi();
 for i = 1:nfields(CGI)
 	inputs.(CGI.params{i}) = CGI.vals{i};
 end
-
-inputs
 
 # validate mlmfile
 mlmfile = inputs.mlmfile;
@@ -47,12 +44,12 @@ end
 
 fclose(fd);
 
-# we match, get source code directory vars
+# we matched a source code directory pattern, use the code there
 addpath(code_dir);
 
+# evaluate the code using the inputs
 htmlstring = feval(mlmfile, inputs);
 
+# display it
 printf(htmlstring);
-
-#printf('<\pre>');
 
