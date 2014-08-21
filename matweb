@@ -1,4 +1,4 @@
-#!/usr/bin/octave -qH
+#!/usr/bin/env octave -qH
 
 addpath([pwd() '/octweb']);
 octweb

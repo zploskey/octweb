@@ -20,14 +20,13 @@ retval.vals = {};
 if strcmp(retval.request_method,'GET') || ...
     strcmp(retval.request_method,'HEAD')
     % GET/HEAD request
-     retval.query_string = getenv('QUERY_STRING');
+    retval.query_string = getenv('QUERY_STRING');
 elseif strcmp(retval.request_method,'POST')
     % POST request
     content_type = getenv('CONTENT_TYPE');
     content_length = str2double(getenv('CONTENT_LENGTH'));
     assert(content_type,'application/x-www-form-urlencoded');
     retval.query_string = fscanf(stdin,'%c',content_length);
-    %fprintf(stderr,'query_string "%s" "%s" "%d"',retval.query_string,content_type,content_length);
 else
     error('unsupported requested method', retval.request_method);
 end
