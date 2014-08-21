@@ -48,7 +48,8 @@ For example, in /var/www/scripts/script1dir/my_script.m
 ```octave
 function result = my_script(inputs)
 
-printf(inputs.user_submitted_data);
+% print the user's input
+inputs.user_submitted_data
 
 end
 ```
