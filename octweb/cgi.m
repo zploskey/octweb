@@ -1,19 +1,12 @@
-%% -*- texinfo -*-
-%% @deftypefn {Function File} {@var{CGI} =} cgi ()
-%% Creates a CGI object to parse CGI query string from GET or POST requests.
-%% Parameter can be return by the functions getfirst and getlist or
-%% with the dot-syntax (CGI.form.name).
-%%
-%% The methods getfirst and getlist behave as the Python CGI functions.
-%% 
-%% @end deftypefn
-%% @seealso{@@cgi/getfirst,@@cgi/getlist}
-
-
 function retval = cgi()
+% Return a struct containing CGI query strings from the current request.
+% The returned struct has the following entries:
+%   request_method -- string
+%   query_string -- string
+%   params -- cell array of parameter name strings
+%   vals -- cell array of value strings
 
 retval.request_method = getenv('REQUEST_METHOD');
-
 retval.params = {};
 retval.vals = {};
 
@@ -25,15 +18,14 @@ elseif strcmp(retval.request_method,'POST')
     % POST request
     content_type = getenv('CONTENT_TYPE');
     content_length = str2double(getenv('CONTENT_LENGTH'));
-    assert(content_type,'application/x-www-form-urlencoded');
-    retval.query_string = fscanf(stdin,'%c',content_length);
+    assert(content_type, 'application/x-www-form-urlencoded');
+    retval.query_string = fscanf(stdin, '%c', content_length);
 else
     error('unsupported requested method', retval.request_method);
 end
 
-
 % should also split at ";"
-p = strsplit(retval.query_string,'&');
+p = strsplit(retval.query_string, '&');
 
 for i=1:length(p)
     pp = strsplit(p{i},'=');
@@ -45,7 +37,7 @@ end
 function uq = unquote(s)
 
 % replace + by space
-s = strrep(s,'+',' ');
+s = strrep(s, '+', ' ');
 
 % decode percent sign + hex value
 uq = '';
