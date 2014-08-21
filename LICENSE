@@ -1,0 +1,12 @@
+If you redistribute this project as a whole, you must do so under
+the terms of both the GPL version 2+ and the MIT license. If you
+modify and/or redistribute it in part, you must abide by the licenses
+of the parts you use.
+
+Unless otherwise stated in the file, code in this project is licensed
+under the MIT license. See COPYING.MIT.
+
+One file in this project is licensed under the GPL version 2 or later:
+octweb/cgi.m
+
+See COPYING.GPL2 and http://www.gnu.org/licenses/gpl-2.0.html.
