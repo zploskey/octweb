@@ -1,14 +1,23 @@
-Octweb is intended to be a drop-in replacement for the (now unsupported)
-MATLAB webserver, but using Octave instead of Matlab.
+Octweb
+======
 
-To install, place the matweb script and octweb directory into the cgi-bin
+Octweb is a drop-in replacement for the (now unsupported) MATLAB webserver,
+but using Octave instead of Matlab. It uses the same interface as the MATLAB
+webserver, but is implemented as several Octave CGI scripts.
+
+It may work with, but has not been tested with, MATLAB.
+
+Installation
+------------
+
+Place the matweb script and octweb directory into the cgi-bin
 directory of your web-server.
 
 In order to dispatch web requests to the proper set of octave scripts,
 create a file called matweb.conf in your cgi-bin. Its contents should be
 something like the following:
 
-```
+```ini
 
 [my_script]
 mlserver=localhost
