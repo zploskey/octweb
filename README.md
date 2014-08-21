@@ -20,5 +20,14 @@ mldir=/var/www/scripts/script2dir
 
 ```
 
-Now you can make forms on the webserver that target "my_script" that receive
-the form variables in an octave struct as their first parameter.
+Now you can make forms on the webserver that target "cgi-bin/matweb" that
+receive the form variables in an octave struct as their first parameter.
+This should look something like this:
+
+```html
+<form action="/cgi-bin/matweb" method="post">
+<input name="mlmfile" value="my_script">
+<textarea name="user_submitted_data"></textarea>
+<input name="Submit" type="submit">
+</form>
+```
