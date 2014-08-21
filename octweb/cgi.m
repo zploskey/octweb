@@ -18,18 +18,18 @@ retval.params = {};
 retval.vals = {};
 
 if strcmp(retval.request_method,'GET') || ...
-   strcmp(retval.request_method,'HEAD')
-  % GET/HEAD request
-  retval.query_string = getenv('QUERY_STRING');
+    strcmp(retval.request_method,'HEAD')
+    % GET/HEAD request
+     retval.query_string = getenv('QUERY_STRING');
 elseif strcmp(retval.request_method,'POST')
-  % POST request
-  content_type = getenv('CONTENT_TYPE');
-  content_length = str2double(getenv('CONTENT_LENGTH'));
-  assert(content_type,'application/x-www-form-urlencoded');
-  retval.query_string = fscanf(stdin,'%c',content_length);
-  %fprintf(stderr,'query_string "%s" "%s" "%d"',retval.query_string,content_type,content_length);
+    % POST request
+    content_type = getenv('CONTENT_TYPE');
+    content_length = str2double(getenv('CONTENT_LENGTH'));
+    assert(content_type,'application/x-www-form-urlencoded');
+    retval.query_string = fscanf(stdin,'%c',content_length);
+    %fprintf(stderr,'query_string "%s" "%s" "%d"',retval.query_string,content_type,content_length);
 else
-  error('unsupported requested method',retval.request_method);
+    error('unsupported requested method', retval.request_method);
 end
 
 
@@ -37,10 +37,9 @@ end
 p = strsplit(retval.query_string,'&');
 
 for i=1:length(p)
-  pp = strsplit(p{i},'=');
-  
-  retval.params{end+1} = unquote(pp{1});
-  retval.vals{end+1} = unquote(pp{2});
+    pp = strsplit(p{i},'=');
+    retval.params{end+1} = unquote(pp{1});
+    retval.vals{end+1} = unquote(pp{2});
 end
 
 % replace strings like 'abc%20def' to 'abc def'
@@ -53,15 +52,14 @@ s = strrep(s,'+',' ');
 uq = '';
 i = 1;
 while i <= length(s)
-  if strcmp(s(i),'%')
-    uq = [uq char(hex2dec(s(i+1:i+2)))];
-    i = i+3;
-  else
-    uq = [uq s(i)];
-    i = i+1;
-  end
+    if strcmp(s(i),'%')
+        uq = [uq char(hex2dec(s(i+1:i+2)))];
+        i = i+3;
+    else
+        uq = [uq s(i)];
+        i = i+1;
+    end
 end
-
 
 % Copyright (C) 2012 Alexander Barth <barth.alexander@gmail.com>
 %

@@ -5,51 +5,50 @@ printf('Content-type: text/html\n\n');
 
 CGI = cgi();
 
-# put the cgi inputs into a struct
+% put the cgi inputs into a struct
 for i = 1:nfields(CGI)
-	inputs.(CGI.params{i}) = CGI.vals{i};
+    inputs.(CGI.params{i}) = CGI.vals{i};
 end
 
-# validate mlmfile
+% validate mlmfile
 mlmfile = inputs.mlmfile;
 if (~regexp(mlmfile, '\w+'))
-	# bad mlmfile, exit
-	printf("Invalid mlmfile");
-	quit();
+    % bad mlmfile, exit
+    printf("Invalid mlmfile");
+    quit();
 end
 
-# create regexp pattern for the mlmfile
+% create regexp pattern for the mlmfile
 mlmfile_pattern = strrep('\s*\[\s*MLMFILE\s*\]\s*', 'MLMFILE', mlmfile);
 
-# find the matching mlmfile and its directory in the config file
+% find the matching mlmfile and its directory in the config file
 fd = fopen('matweb.conf', 'r');
 match = false;
 while (true)
-	# get current line
-	ln = fgetl(fd);
-	# Fail if we have reached the end of the file.
-	if (ln == -1)
-		printf("No matching target in config file");
-		fclose(fd);
-		quit();
-	end
+    % get current line
+    ln = fgetl(fd);
+    % Fail if we have reached the end of the file.
+    if (ln == -1)
+        printf("No matching target in config file");
+        fclose(fd);
+        quit();
+    end
 
-	# does it match [mlmfile]
-	if (regexp(ln, mlmfile_pattern))
-		match = true;
-		code_dir = get_mlmdir(fd);
-		break;
-	end
+    % does it match [mlmfile]
+    if (regexp(ln, mlmfile_pattern))
+        match = true;
+        code_dir = get_mlmdir(fd);
+        break;
+    end
 end
 
 fclose(fd);
 
-# we matched a source code directory pattern, use the code there
+% we matched a source code directory pattern, use the code there
 addpath(code_dir);
 
-# evaluate the code using the inputs
+% evaluate the code using the inputs
 htmlstring = feval(mlmfile, inputs);
 
-# display it
+% display it
 printf(htmlstring);
-

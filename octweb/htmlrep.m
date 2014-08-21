@@ -9,4 +9,4 @@ for fn = fnames
 	rep = strrep(rep, ['$' fn{1} '$'], instruct.(fn{1}));
 end
 
-end
+end 
