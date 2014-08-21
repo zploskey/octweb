@@ -40,3 +40,15 @@ This should look something like this:
 <input name="Submit" type="submit">
 </form>
 ```
+
+Then if the user submits the form, the contents of user_submitted_data,
+and any other form fields you create, will be passed as the first parameter.
+
+For example, in /var/www/scripts/script1dir/my_script.m
+```octave
+function result = my_script(inputs)
+
+printf(inputs.user_submitted_data);
+
+end
+```
